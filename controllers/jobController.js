@@ -50,4 +50,4 @@ const updateJob =async (req, res)=>{
     }
 }
 
-module.exports = { createJob , getJob};
+module.exports = { createJob , getJob , updateJob};
