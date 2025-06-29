@@ -32,7 +32,7 @@ const getJob = async (req, res) => {
 const getDataId = async (req, res) => {
   try {
     const jobId = req.params.id;
-    const response = await Job.findOne(jobId);
+    const response = await Job.findById(jobId);
 
     if (!response) {
       return res.status(400).json({ message: "Job NOT found" });
