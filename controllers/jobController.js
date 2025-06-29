@@ -28,6 +28,23 @@ const getJob = async (req, res) => {
   }
 };
 
+// create get id method to get specific data
+const getDataId = async (req, res) => {
+  try {
+    const jobId = req.params.id;
+    const response = await Job.findOne(jobId);
+
+    if (!response) {
+      return res.status(400).json({ message: "Job NOT found" });
+    }
+    console.log("data fetching by Id");
+    res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal Server Err" });
+  }
+};
+
 // create  PUT method to Update jobs
 
 const updateJob = async (req, res) => {
@@ -67,4 +84,4 @@ const deletJob = async (req, res) => {
   }
 };
 
-module.exports = { createJob, getJob, updateJob, deletJob };
+module.exports = { createJob, getJob, updateJob, deletJob, getDataId };
