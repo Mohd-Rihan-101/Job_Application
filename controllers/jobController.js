@@ -17,37 +17,54 @@ const createJob = async (req, res) => {
 
 // create get method to get job
 
-const getJob = async (req,res)=>{
-    try {
-        const data = await Job.find();
-        console.log("Data fetch succesfully");
-        res.status(200).json(data);
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({message : "Internal Server error"});
-    }
+const getJob = async (req, res) => {
+  try {
+    const data = await Job.find();
+    console.log("Data fetch succesfully");
+    res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server error" });
+  }
 };
 
 // create  PUT method to Update jobs
 
-const updateJob =async (req, res)=>{
-    try {
-        const jobId = req.params.id;
-        const updateData = req.body;
-        const response =  await Job.findByIdAndUpdate(jobId, updateData, {
-            new : true,
-            runValidators : true
-        });
+const updateJob = async (req, res) => {
+  try {
+    const jobId = req.params.id;
+    const updateData = req.body;
+    const response = await Job.findByIdAndUpdate(jobId, updateData, {
+      new: true,
+      runValidators: true,
+    });
 
-        if(!response){
-            return res.status(400).json({message : "Job NOT found"});
-        };
-        console.log("Job Update Successfully");
-        res.status(200).json(response);
-    } catch (error) {
-        console.log(error);
-    res.status(500).json({ error: "Internal Server Err" });
+    if (!response) {
+      return res.status(400).json({ message: "Job NOT found" });
     }
-}
+    console.log("Job Update Successfully");
+    res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal Server Err" });
+  }
+};
 
-module.exports = { createJob , getJob , updateJob};
+// create DELETE method to delete job
+const deletJob = async (req, res) => {
+  try {
+    const jobId = req.params.id;
+    const response = await Job.findByIdAndDelete(jobId);
+
+    if (!response) {
+      return res.status(400).json({ message: "Job NOT found" });
+    }
+    console.log("Job delete Successfully");
+    res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal Server error" });
+  }
+};
+
+module.exports = { createJob, getJob, updateJob, deletJob };

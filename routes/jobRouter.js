@@ -8,5 +8,5 @@ const { updateJob } = require("../controllers/jobController");
 //use controller as a callback
 router.post("/", createJob);
 router.get("/", getJob);
-router.put("/", updateJob);
+router.put("/:id", updateJob);
 module.exports = router;
